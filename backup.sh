@@ -5,14 +5,15 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
+	cp -a ~/.ssh ./
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
 		--exclude ".osx" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
-		-avh --no-perms . ~;
-	source ~/.bash_profile;
+		--exclude "init" \
+		-avh --no-perms . ~/Documents/dotfiles/;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then
@@ -25,6 +26,3 @@ else
 	fi;
 fi;
 unset doIt;
-
-# zsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
